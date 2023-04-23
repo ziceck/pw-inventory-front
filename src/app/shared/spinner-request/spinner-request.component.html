@@ -1,0 +1,6 @@
+<div class="full-screen" *ngIf="loadingService.isLoading | async">
+  <mat-progress-spinner
+      [mode]="'indeterminate'"
+      class="spinner-load">
+  </mat-progress-spinner>
+</div>

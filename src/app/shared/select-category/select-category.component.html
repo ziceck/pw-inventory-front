@@ -1,0 +1,22 @@
+<mat-form-field appearance="outline">
+  <mat-label>Categoría</mat-label>
+  <mat-select
+      (selectionChange)="onSelectionChange($event)"
+      [formControl]="formControl"
+      [value]="value"
+      [required]="required">
+    <mat-option disabled>
+      Seleccione una categoría
+    </mat-option>
+    <mat-option
+        *ngFor="let category of categories"
+        [value]="category.id">
+      {{category.name | titlecase}}
+    </mat-option>
+  </mat-select>
+
+  <mat-error *ngIf="formControl.hasError('required')">
+    La <strong>categoría</strong> es requerida
+  </mat-error>
+
+</mat-form-field>

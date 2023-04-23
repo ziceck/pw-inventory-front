@@ -1,0 +1,145 @@
+<div class="main-padding">
+  <mat-card>
+    <mat-card-title>
+      Información del sistema
+    </mat-card-title>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Nombre del sistema
+            </mat-label>
+            <input #name type="text" matInput value="pw-inventarios" readonly>
+            <button
+                title="Copiar"
+                matSuffix
+                type="button"
+                mat-icon-button
+                aria-label="Copy"
+                [cdkCopyToClipboard]="name.value"
+                (click)="onCopy('nombre del sistema')">
+              <mat-icon>content_copy</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Desarrollado por
+            </mat-label>
+            <input #developer type="text" matInput value="pandyware" readonly>
+            <button
+                title="Copiar"
+                matSuffix
+                type="button"
+                mat-icon-button
+                aria-label="Copy"
+                [cdkCopyToClipboard]="developer.value"
+                (click)="onCopy('nombre del desarrollador')">
+              <mat-icon>content_copy</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Versión
+            </mat-label>
+            <input #version type="text" matInput [value]="versions.version" readonly>
+            <button
+                title="Copiar"
+                matSuffix
+                type="button"
+                mat-icon-button
+                aria-label="Copy"
+                [cdkCopyToClipboard]="version.value"
+                (click)="onCopy('nombre del desarrollador')">
+              <mat-icon>content_copy</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Revision
+            </mat-label>
+            <input #revision type="text" matInput [value]="versions.revision" readonly>
+            <button
+                title="Copiar"
+                matSuffix
+                type="button"
+                mat-icon-button
+                aria-label="Copy"
+                [cdkCopyToClipboard]="revision.value"
+                (click)="onCopy('revision')">
+              <mat-icon>content_copy</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Branch
+            </mat-label>
+            <input #branch type="text" matInput [value]="versions.branch" readonly>
+            <button
+                title="Copiar"
+                matSuffix
+                type="button"
+                mat-icon-button
+                aria-label="Copy"
+                [cdkCopyToClipboard]="branch.value"
+                (click)="onCopy('branch')">
+              <mat-icon>content_copy</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Fecha de compilación
+            </mat-label>
+            <input #date type="text" matInput [value]="versions.date" readonly>
+            <button
+                title="Copiar"
+                matSuffix
+                type="button"
+                mat-icon-button
+                aria-label="Copy"
+                [cdkCopyToClipboard]="date.value"
+                (click)="onCopy('fecha de compilación')">
+              <mat-icon>content_copy</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Entorno
+            </mat-label>
+            <input #environment type="text" matInput [value]="env" readonly>
+            <button
+                title="Copiar"
+                matSuffix
+                type="button"
+                mat-icon-button
+                aria-label="Copy"
+                [cdkCopyToClipboard]="environment.value"
+                (click)="onCopy('entorno')">
+              <mat-icon>content_copy</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,61 @@
+<h1 mat-dialog-title>Finalizar venta</h1>
+<div mat-dialog-content>
+  <form [formGroup]="fgFinishSale" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field appearance="outline">
+          <mat-label>
+            Total
+          </mat-label>
+          <input matInput [value]="data.total" readonly type="number">
+        </mat-form-field>
+      </div>
+
+      <div class="col-12">
+        <mat-form-field appearance="outline">
+          <mat-label>
+            Cantidad recibida
+          </mat-label>
+          <input matInput [formControl]="fgFinishSale.get('recibido')" required placeholder="200" type="number">
+          <mat-error *ngIf="fgFinishSale.get('recibido').hasError('required')">
+            La <strong>cantidad recibida</strong> es requerida
+          </mat-error>
+          <mat-error *ngIf="fgFinishSale.get('recibido').hasError('min')">
+            La <strong>cantidad recibida</strong> mínima es {{data.total}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-12">
+        <mat-form-field appearance="outline">
+          <mat-label>
+            Cambio
+          </mat-label>
+          <input matInput [formControl]="fgFinishSale.get('cambio')" readonly>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <hr>
+    <div class="row">
+      <div class="col">
+        <button
+            id="close-modal"
+            mat-raised-button
+            [mat-dialog-close]="undefined"
+            color="warn">
+          Cancelar
+        </button>
+      </div>
+      <div class="col d-flex justify-content-end">
+        <button
+            [disabled]="fgFinishSale.get('recibido').invalid"
+            mat-raised-button
+            color="primary"
+            type="submit">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

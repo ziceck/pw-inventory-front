@@ -1,0 +1,31 @@
+<!--suppress TypeScriptValidateTypes -->
+<div class="main-padding">
+  <mat-card>
+    <mat-card-title>
+      Configuración
+    </mat-card-title>
+    <mat-card-content>
+      <h5>Ticket</h5>
+      <ul [formGroup]="fgConfiguration.controls.ticket">
+        <li>
+          <mat-checkbox formControlName="printTicket">
+            Imprimir ticket
+          </mat-checkbox>
+        </li>
+        <li>
+          <mat-checkbox formControlName="showDialog">
+            Mostrar dialogo impresión
+          </mat-checkbox>
+        </li>
+      </ul>
+    </mat-card-content>
+    <hr>
+    <div class="row">
+      <div class="col d-flex justify-content-end">
+        <button mat-raised-button color="primary" (click)="onSave()">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</div>

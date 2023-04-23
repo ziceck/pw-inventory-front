@@ -1,0 +1,89 @@
+<div class="main-padding">
+  <mat-card>
+    <mat-card-title>
+      Mi perfil
+    </mat-card-title>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Nombre de usuario
+            </mat-label>
+            <input type="text" matInput [value]="username">
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Rol
+            </mat-label>
+            <input type="text" matInput [value]="rol | role">
+          </mat-form-field>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col d-flex justify-content-end">
+          <button mat-raised-button color="primary" (click)="onChangePassword()">
+            Cambiar contraseña
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>
+      Datos personales
+    </mat-card-title>
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()" [formGroup]="fgPersonalInformation">
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Nombre
+              </mat-label>
+              <input type="text" matInput required formControlName="name">
+              <mat-error *ngIf="fgPersonalInformation.get('name').hasError('required')">
+                El <strong>nombre</strong> es requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Apellido paterno
+              </mat-label>
+              <input type="text" matInput required formControlName="lastName">
+              <mat-error *ngIf="fgPersonalInformation.get('lastName').hasError('required')">
+                El <strong>apellido paterno</strong> es requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Apellido materno
+              </mat-label>
+              <input type="text" matInput formControlName="secondLastName">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <hr>
+        <div class="row">
+          <div class="col d-flex justify-content-end">
+            <button mat-raised-button type="submit" color="primary" [disabled]="fgPersonalInformation.invalid">
+              Guardar
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

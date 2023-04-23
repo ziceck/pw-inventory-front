@@ -1,0 +1,145 @@
+@use '@angular/material' as mat;
+@import '@angular/material/theming';
+@import 'material-icons/iconfont/material-icons.css';
+
+// Theme configuration
+@include mat.core();
+
+// Define a dark theme
+$dark-theme: mat.define-dark-theme((
+    color: (
+        primary: mat.define-palette(mat.$purple-palette),
+        warning: mat.define-palette(mat.$red-palette),
+        accent: mat.define-palette(mat.$green-palette),
+    ),
+  // Only include `typography` and `density` in the default dark theme.
+    typography: mat.define-typography-config(),
+    density: 0,
+));
+
+// Define a light theme
+$light-theme: mat.define-light-theme((
+    color: (
+        primary: mat.define-palette(mat.$indigo-palette),
+        warning: mat.define-palette(mat.$red-palette),
+        accent: mat.define-palette(mat.$pink-palette),
+    ),
+));
+
+// Apply the dark theme by default
+@include mat.all-component-colors($dark-theme);
+@include mat.core-theme($dark-theme);
+@include mat.button-theme($dark-theme);
+
+// Apply the light theme only when the user prefers light themes.
+@media (prefers-color-scheme: light) {
+  // Use the `-color` mixins to only apply color styles without reapplying the same
+  // typography and density styles.
+  @include mat.all-component-colors($light-theme);
+  @include mat.core-color($light-theme);
+  @include mat.button-color($light-theme);
+}
+
+html, body {
+  min-height: 100vh;
+  height: auto;
+  margin: 0;
+}
+
+body {
+  background: #e5e4e2;
+}
+
+/* You can add global styles to this file, and also import other style files */
+.main-padding {
+  padding: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+/* start mat-table responsive */
+mat-table .mat-column-- { /*less width in # column*/
+  flex: 0 0 5%;
+  color: grey;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+mat-header-cell {
+  font-size: 14px !important;
+  font-weight: bold !important;
+}
+
+/* TODO: Move this to mobile label */
+.mobile-label {
+  display: none;
+  color: rgba(0, 0, 0, .54)
+}
+
+@media (max-width: 800px) {
+  .mobile-label {
+    width: 100px;
+    display: inline-block;
+  }
+
+  .mat-header-row {
+    display: none;
+  }
+
+  .mat-cell {
+    padding-left: 0;
+  }
+
+  .mat-row {
+    flex-direction: column;
+    align-items: start;
+    padding: 8px 24px;
+  }
+}
+
+/* end mat-table responsive */
+
+.margin-top-20px {
+  margin-top: 20px;
+}
+
+/*start effect on row*/
+.mat-row:hover {
+  border: 1px solid black;
+}
+/*end effect on row*/
+
+/*mat-card padding*/
+mat-card {
+  padding: 30px!important;
+}
+
+/**/
+/*mat-cell, mat-header-cell, mat-footer-cell {
+  justify-content: center;
+}*/
+/**/
+
+/** Styles for mat snackbar background **/
+.fg-500 {
+  font-weight: 500;
+}
+
+.bg-warning-orange {
+  background: orange;
+}
+
+@media (prefers-color-scheme: dark) {
+  .breadcrumb-item.active {
+    color: lightgray;
+  }
+
+  .mat-row:hover {
+    border: 1px solid white;
+  }
+}

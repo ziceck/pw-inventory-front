@@ -1,0 +1,91 @@
+<div class="main-padding">
+  <app-pw-nav>
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/sales">Usuarios</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Registrar</li>
+  </app-pw-nav>
+
+  <mat-card>
+    <mat-card-title>
+      Usuarios
+    </mat-card-title>
+
+    <mat-card-content>
+      <form [formGroup]="fgUser" (ngSubmit)="onCreateUser()">
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Nombre de usuario
+              </mat-label>
+              <input
+                  formControlName="username"
+                  matInput
+                  placeholder="nombre de usuario"
+                  required
+                  type="text">
+              <mat-error *ngIf="fgUser.get('username').hasError('required')">
+                El <strong>nombre de usuario</strong> es requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <app-select-role [required]="true" [formControl]="fgUser.get('role')">
+            </app-select-role>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="displayPasswordRow">
+          <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Contraseña
+              </mat-label>
+              <input matInput formControlName="password" required type="password" autocomplete="off">
+              <mat-error *ngIf="fgUser.get('password').hasError('required')">
+                La <strong>contraseña</strong> es requerida
+              </mat-error>
+              <mat-error *ngIf="fgUser.get('password').hasError('matchPassword')">
+                Las contraseñas no coinciden
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Confirmar contraseña
+              </mat-label>
+              <input matInput formControlName="confirmPassword" required type="password" autocomplete="off">
+              <mat-error *ngIf="fgUser.get('confirmPassword').hasError('required')">
+                Es necesario confirmar la contraseña
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <hr>
+        <div class="row">
+          <div class="col">
+            <button
+                id="close-modal"
+                mat-raised-button
+                color="warn">
+              Cancelar
+            </button>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <button
+                [disabled]="fgUser.invalid"
+                mat-raised-button
+                color="primary"
+                type="submit">
+              Guardar
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,100 @@
+<div class="main-padding">
+
+  <app-pw-nav>
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Baja de productos</li>
+  </app-pw-nav>
+
+  <mat-card>
+    <mat-card-title>
+      <div class="row">
+        <div class="col">
+          Bajas de productos registradas
+        </div>
+        <div class="col d-flex justify-content-end">
+          <button
+              aria-label="Registrar producto"
+              color="accent"
+              mat-fab
+              matTooltip="Registrar baja de producto"
+              routerLink="../create">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card-title>
+
+    <mat-card-content [hidden]="dataSource.data.length === 0">
+      <div class="row">
+        <div class="col">
+          <mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="#">
+              <mat-header-cell *matHeaderCellDef>
+                #
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let itemOutput; index as i">
+                <span class="mobile-label">#</span>
+                {{ i + 1 }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="item-name">
+              <mat-header-cell *matHeaderCellDef>
+                Nombre del producto
+              </mat-header-cell>
+              <mat-cell *matCellDef="let itemOuput">
+                <span class="mobile-label">Nombre del producto</span>
+                {{itemOuput.item.name}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="quantity">
+              <mat-header-cell *matHeaderCellDef>
+                Cantidad
+              </mat-header-cell>
+              <mat-cell *matCellDef="let itemOutput">
+                <span class="mobile-label">Cantidad</span>
+                {{itemOutput.quantity}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+              <mat-header-cell *matHeaderCellDef>
+                Descripción
+              </mat-header-cell>
+              <mat-cell *matCellDef="let itemOutput">
+                <span class="mobile-label">Descripción</span>
+                {{itemOutput.description}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+              <mat-header-cell *matHeaderCellDef>
+                Fecha
+              </mat-header-cell>
+              <mat-cell *matCellDef="let itemOutput">
+                <span class="mobile-label">Fecha</span>
+                {{itemOutput.dateCreated | date: 'longDate'}}
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns">
+            </mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns">
+            </mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+          </mat-paginator>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-content *ngIf="dataSource.data.length === 0">
+      <app-no-records>
+        No se encontraron bajas de productos
+      </app-no-records>
+    </mat-card-content>
+
+  </mat-card>
+</div>

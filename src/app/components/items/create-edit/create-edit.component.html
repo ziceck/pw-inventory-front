@@ -1,0 +1,172 @@
+<div class="main-padding">
+
+  <app-pw-nav>
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/items">Productos</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Registrar</li>
+  </app-pw-nav>
+
+  <mat-card>
+    <mat-card-title>
+      {{title}}
+    </mat-card-title>
+
+    <mat-card-content>
+      <form [formGroup]="fgItem">
+        <div class="row">
+
+          <div class="col">
+            <app-photo
+                [photoId]="fgItem.get('photo')?.get('id')?.value"
+                (sendPhoto)="onSendPhoto($event)">
+            </app-photo>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Nombre
+              </mat-label>
+              <input
+                  formControlName="name"
+                  matInput
+                  placeholder="Caja de galletas"
+                  required
+                  type="text">
+              <mat-error *ngIf="fgItem.get('name').hasError('required')">
+                El <strong>nombre</strong> es requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Cantidad
+              </mat-label>
+              <input
+                  formControlName="quantity"
+                  matInput
+                  min="0"
+                  placeholder="Cantidad actual"
+                  readonly
+                  type="number">
+              <!--mat-error *ngIf="fgItem.get('quantity').hasError('required')">
+                La <strong>cantidad</strong> es requerida
+              </mat-error-->
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Precio de venta
+              </mat-label>
+              <input
+                  formControlName="priceSale"
+                  [errorStateMatcher]="errorStateMatcher"
+                  matInput
+                  placeholder="15"
+                  min="0"
+                  required
+                  type="number">
+              <mat-error *ngIf="fgItem.get('priceSale').hasError('required')">
+                El <strong>precio de venta</strong> es requerido
+              </mat-error>
+              <mat-error *ngIf="fgItem.get('priceSale').hasError('min')">
+                El valor <strong>mínimo</strong> es 0
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Precio de compra
+              </mat-label>
+              <input
+                  formControlName="pricePurchase"
+                  [errorStateMatcher]="errorStateMatcher"
+                  matInput
+                  placeholder="10"
+                  min="0"
+                  required
+                  type="number">
+              <mat-error *ngIf="fgItem.get('pricePurchase').hasError('required')">
+                El <strong>precio de compra</strong> es requerido
+              </mat-error>
+              <mat-error *ngIf="fgItem.get('pricePurchase').hasError('min')">
+                El valor <strong>mínimo</strong> es 0
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Mínimo requerido en inventario
+              </mat-label>
+              <input
+                  formControlName="minimum"
+                  matInput
+                  [errorStateMatcher]="errorStateMatcher"
+                  min="0"
+                  placeholder="5"
+                  required
+                  type="number">
+              <mat-error *ngIf="fgItem.get('minimum').hasError('required')">
+                El <strong>mínimo en inventario</strong> es requerido
+              </mat-error>
+              <mat-error *ngIf="fgItem.get('minimum').hasError('min')">
+                El valor <strong>mínimo</strong> es 0
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <!--suppress TypeScriptValidateTypes -->
+            <app-select-category
+                [formControl]="fgItem.get('category').get('id')"
+                required="true">
+            </app-select-category>
+          </div>
+
+          <div class="col">
+            <!--suppress TypeScriptValidateTypes -->
+            <app-select-brand
+                [formControl]="fgItem.get('brand').get('id')">
+            </app-select-brand>
+          </div>
+
+
+          <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Código de barras
+              </mat-label>
+              <input
+                  formControlName="barcode"
+                  placeholder="35897023428"
+                  matInput
+                  type="text">
+              <!--mat-error *ngIf="fgItem.get('barcode').hasError('required')">
+                El <strong>código de barras</strong> es requerido
+              </mat-error-->
+            </mat-form-field>
+          </div>
+        </div>
+
+        <hr>
+        <div class="row">
+          <div class="col d-flex justify-content-end">
+            <button (click)="onSubmit()" color="primary" mat-raised-button type="button">
+              Guardar
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

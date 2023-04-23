@@ -1,0 +1,22 @@
+<mat-form-field appearance="outline">
+  <mat-label>Marca</mat-label>
+  <mat-select
+      (selectionChange)="onSelectionChange($event)"
+      [formControl]="formControl"
+      [value]="value"
+      [required]="required">
+    <mat-option disabled>
+      Seleccione una marca
+    </mat-option>
+    <mat-option
+        *ngFor="let brand of brands"
+        [value]="brand.id">
+      {{brand.name | titlecase}}
+    </mat-option>
+  </mat-select>
+
+  <mat-error *ngIf="formControl.hasError('required')">
+    La <strong>marca</strong> es requerida
+  </mat-error>
+
+</mat-form-field>

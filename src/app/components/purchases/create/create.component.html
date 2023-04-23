@@ -1,0 +1,128 @@
+<div class="main-padding">
+
+  <app-pw-nav>
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/purchases">Compras</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Registrar</li>
+  </app-pw-nav>
+
+  <app-search (item)="onItem($event)">
+  </app-search>
+
+  <mat-card class="margin-top-20px">
+    <mat-card-title>
+      Compras
+    </mat-card-title>
+    <mat-card-content *ngIf="items.length > 0; else noData">
+      <mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef>
+            Nombre
+          </mat-header-cell>
+          <mat-cell *matCellDef="let item">
+            <span class="mobile-label">Nombre</span>
+            <input
+                [formControl]="item.get('item').get('name')"
+                matInput
+                readonly
+                type="text"/>
+          </mat-cell>
+          <mat-footer-cell *matFooterCellDef>
+            <strong>Total</strong>
+          </mat-footer-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <mat-header-cell *matHeaderCellDef>
+            Cantidad
+          </mat-header-cell>
+          <mat-cell *matCellDef="let item;">
+            <span class="mobile-label">Cantidad</span>
+            <mat-form-field appearance="outline">
+              <input
+                  [formControl]="item.get('quantity')"
+                  matInput
+                  min="1"
+                  type="number"/>
+              <mat-error *ngIf="item.get('quantity').hasError('required')">
+                La <strong>cantidad</strong> es requerida
+              </mat-error>
+              <mat-error *ngIf="item.get('quantity').hasError('min')">
+                La <strong>cantidad</strong> mínima es 1
+              </mat-error>
+            </mat-form-field>
+          </mat-cell>
+          <mat-footer-cell *matFooterCellDef>
+          </mat-footer-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <mat-header-cell *matHeaderCellDef>
+            Precio
+          </mat-header-cell>
+          <mat-cell *matCellDef="let item">
+            <span class="mobile-label">Precio</span>
+            <mat-form-field appearance="outline">
+              <input
+                  [formControl]="item.get('price')"
+                  matInput
+                  min="0"
+                  readonly
+                  type="number"/>
+              <mat-error *ngIf="item.get('price').hasError('required')">
+                El <strong>precio</strong> es requerido
+              </mat-error>
+              <mat-error *ngIf="item.get('price').hasError('min')">
+                El <strong>precio</strong> mínimo es 0
+              </mat-error>
+            </mat-form-field>
+          </mat-cell>
+          <mat-footer-cell *matFooterCellDef>
+            <strong>{{total | currency: 'MXN' : 'symbol-narrow': '1.2-2' : 'en-US'}} </strong>
+          </mat-footer-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="options">
+          <mat-header-cell *matHeaderCellDef>
+            Opciones
+          </mat-header-cell>
+          <mat-cell *matCellDef="let item; index as i">
+            <span class="mobile-label">Opciones</span>
+            <app-pw-option
+                (click)="onDelete(i)"
+                matTooltip="Eliminar producto">
+              delete
+            </app-pw-option>
+          </mat-cell>
+          <mat-footer-cell *matFooterCellDef>
+          </mat-footer-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns">
+        </mat-row>
+        <mat-footer-row *matFooterRowDef="displayedColumns">
+        </mat-footer-row>
+      </mat-table>
+    </mat-card-content>
+
+    <mat-card-actions *ngIf="items.length > 0">
+      <div class="row">
+        <div class="col d-flex justify-content-end">
+          <button (click)="onSubmit()" color="primary" mat-raised-button type="button">
+            Guardar
+          </button>
+        </div>
+      </div>
+    </mat-card-actions>
+
+    <ng-template #noData>
+      <mat-card-content>
+        <app-no-records>
+          No se han agregado productos a esta compra
+        </app-no-records>
+      </mat-card-content>
+    </ng-template>
+  </mat-card>
+</div>

@@ -1,0 +1,96 @@
+<div class="main-padding">
+
+  <app-pw-nav>
+    <li aria-current="page" class="breadcrumb-item active">Home</li>
+  </app-pw-nav>
+
+  <mat-card>
+    <mat-card-title>
+      Información general de hoy
+    </mat-card-title>
+    <mat-card-content>
+      <hr>
+      <h5>Ventas</h5>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Total de ventas realizadas
+            </mat-label>
+            <input [value]="informationDashboard?.salesToday?.toString()" matInput readonly type="number">
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Productos vendidos
+            </mat-label>
+            <input
+                [value]="informationDashboard?.soldItemsToday?.toString()"
+                matInput
+                readonly
+                type="number">
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Ingresos
+            </mat-label>
+            <input
+                [value]="informationDashboard?.receiptsToday | currency: 'MXN' : 'symbol-narrow': '1.2-2' : 'en-US'"
+                matInput
+                readonly
+                type="text">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <hr>
+      <h5>Compras</h5>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Total de compras realizadas
+            </mat-label>
+            <input
+                [value]="informationDashboard?.purchasesToday?.toString()"
+                matInput
+                readonly
+                type="number">
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Productos comprados
+            </mat-label>
+            <input
+                [value]="informationDashboard?.purchasedItemsToday?.toString()"
+                matInput
+                readonly
+                type="number">
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Gastos
+            </mat-label>
+            <input
+                [value]="informationDashboard?.expensesToday | currency: 'MXN' : 'symbol-narrow': '1.2-2' : 'en-US'"
+                matInput
+                readonly
+                type="text">
+          </mat-form-field>
+        </div>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

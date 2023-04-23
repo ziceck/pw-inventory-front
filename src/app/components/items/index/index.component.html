@@ -1,0 +1,171 @@
+<div class="main-padding">
+
+  <app-pw-nav>
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Productos</li>
+  </app-pw-nav>
+
+  <mat-card>
+    <mat-card-title>
+      <div class="row">
+        <div class="col">
+          Productos Registrados
+        </div>
+        <div class="col d-flex justify-content-end" *ngIf="isAdmin">
+          <button
+              id="add-item-button"
+              aria-label="Registrar producto"
+              color="accent"
+              mat-fab
+              matTooltip="Registrar producto"
+              routerLink="../create">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card-title>
+
+    <mat-card-content [hidden]="dataSource.data.length === 0">
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Búsqueda
+            </mat-label>
+            <input
+                [formControl]="inputSearch"
+                matInput
+                placeholder="Escriba su búsqueda"
+                type="text">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="#">
+              <mat-header-cell *matHeaderCellDef>
+                #
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let item; index as i">
+                <span class="mobile-label">#</span>
+                {{ i + 1 }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Nombre
+              </mat-header-cell>
+              <mat-cell *matCellDef="let item">
+                <span class="mobile-label">Nombre</span>
+                {{item.name | titlecase}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="quantity">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Cantidad disponible
+              </mat-header-cell>
+              <mat-cell *matCellDef="let item">
+                <span class="mobile-label">Cantidad disponible</span>
+                {{item.quantity}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="price-sale">
+              <mat-header-cell *matHeaderCellDef>
+                Precio venta
+              </mat-header-cell>
+              <mat-cell *matCellDef="let item">
+                <span class="mobile-label">Precio venta</span>
+                {{item.priceSale | currency: 'MXN' : 'symbol-narrow': '1.2-2' : 'en-US'}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="price-purchase">
+              <mat-header-cell *matHeaderCellDef>
+                Precio compra
+              </mat-header-cell>
+              <mat-cell *matCellDef="let item">
+                <span class="mobile-label">Precio compra</span>
+                {{item.pricePurchase | currency: 'MXN' : 'symbol-narrow': '1.2-2' : 'en-US'}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="category">
+              <mat-header-cell *matHeaderCellDef>
+                Categoría
+              </mat-header-cell>
+              <mat-cell *matCellDef="let item">
+                <span class="mobile-label">Categoría</span>
+                {{item.category.name | titlecase}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <mat-header-cell *matHeaderCellDef>
+                Estado
+              </mat-header-cell>
+              <mat-cell *matCellDef="let item">
+                <span class="mobile-label">Estado</span>
+                <mat-chip-list aria-label="status">
+                  <mat-chip selected appStatusItem [quantity]="item.quantity" [minimum]="item.minimum">
+                    {{item.quantity >= item.minimum ? 'Suficiente' : 'Bajo'}}
+                  </mat-chip>
+                </mat-chip-list>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="options">
+              <mat-header-cell *matHeaderCellDef>
+                Opciones
+              </mat-header-cell>
+              <mat-cell *matCellDef="let item">
+                <span class="mobile-label">Opciones</span>
+                <app-pw-option
+                    *ngIf="isAdmin"
+                    [routerLink]="'../edit/' + item.id"
+                    title="Editar producto">
+                  edit
+                </app-pw-option>
+                <app-pw-option
+                    *ngIf="isAdmin"
+                    (click)="openMatDialog(item)"
+                    title="Agregar producto">
+                  add
+                </app-pw-option>
+                <app-pw-option
+                    (click)="copyID(item.id)"
+                    title="Copiar ID">
+                  content_copy
+                </app-pw-option>
+                <app-pw-option
+                    (click)="onClickHistory(item)"
+                    title="Historial del producto"
+                    [routerLink]="'../' + item.id + '/history'">
+                  history
+                </app-pw-option>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns">
+            </mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns">
+            </mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+          </mat-paginator>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-content *ngIf="dataSource.data.length === 0">
+      <app-no-records>
+        No se encontraron productos
+      </app-no-records>
+    </mat-card-content>
+
+  </mat-card>
+</div>

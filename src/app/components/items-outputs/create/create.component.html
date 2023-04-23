@@ -1,0 +1,85 @@
+<div class="main-padding">
+
+  <app-pw-nav>
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/items-outputs">Baja de productos</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Registrar</li>
+  </app-pw-nav>
+
+  <app-search (item)="onItem($event)">
+  </app-search>
+
+  <mat-card *ngIf="item">
+    <mat-card-title>
+      Baja de producto
+    </mat-card-title>
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()" [formGroup]="fgItemOutput">
+
+        <div class="row">
+          <div class="col-4">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Nombre
+              </mat-label>
+              <input type="text" matInput readonly [value]="item.name">
+            </mat-form-field>
+          </div>
+
+          <div class="col-4">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Cantidad actual
+              </mat-label>
+              <input type="number" matInput readonly [value]="item?.quantity.toString()">
+            </mat-form-field>
+          </div>
+
+          <div class="col-4">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Cantidad a eliminar
+              </mat-label>
+              <input
+                  type="number"
+                  matInput
+                  placeholder="1"
+                  required
+                  formControlName="quantity"
+                  [errorStateMatcher]="errorStateMatcher" [min]="1" [max]="item.quantity">
+              <mat-error *ngIf="fgItemOutput.get('quantity').hasError('required')">
+                La <strong>cantidad a eliminar</strong> es requerida
+              </mat-error>
+              <mat-error *ngIf="fgItemOutput.get('quantity').hasError('min')">
+                La <strong>cantidad a eliminar</strong> mínima es 1
+              </mat-error>
+              <mat-error *ngIf="fgItemOutput.get('quantity').hasError('max')">
+                La <strong>cantidad a eliminar</strong> maxima es {{item.quantity}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                Descripción
+              </mat-label>
+              <textarea matInput formControlName="description"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <hr>
+        <div class="row">
+          <div class="col d-flex justify-content-end">
+            <button mat-raised-button color="primary" type="submit">
+              Guardar
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

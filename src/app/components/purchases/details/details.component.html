@@ -1,0 +1,107 @@
+<div class="main-padding">
+
+  <app-pw-nav>
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/sales">Compras</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Detalles</li>
+  </app-pw-nav>
+
+  <mat-card>
+    <mat-card-title>
+      Detalles de compra
+    </mat-card-title>
+
+    <mat-card-content>
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Descripción
+            </mat-label>
+            <input
+                [value]="purchase?.description"
+                matInput
+                readonly
+                type="text">
+          </mat-form-field>
+        </div>
+
+        <div class="col-6">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Fecha
+            </mat-label>
+            <input
+                [value]="purchase?.dateCreated | date: 'longDate'"
+                matInput
+                readonly
+                type="text">
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <hr>
+          <h6>Lista de productos</h6>
+          <mat-table [dataSource]="purchase?.items">
+            <ng-container matColumnDef="#">
+              <mat-header-cell *matHeaderCellDef>
+                #
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let sale; index as i">
+                <span class="mobile-label">#</span>
+                {{ i + 1 }}
+              </mat-cell>
+              <mat-footer-cell *matFooterCellDef>
+              </mat-footer-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef>
+                Nombre
+              </mat-header-cell>
+              <mat-cell *matCellDef="let item">
+                <span class="mobile-label">Nombre</span>
+                {{item.item.name}}
+              </mat-cell>
+              <mat-footer-cell *matFooterCellDef>
+                <strong>Total</strong>
+              </mat-footer-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="quantity">
+              <mat-header-cell *matHeaderCellDef>
+                Cantidad
+              </mat-header-cell>
+              <mat-cell *matCellDef="let item">
+                <span class="mobile-label">Cantidad</span>
+                {{item.quantity}}
+              </mat-cell>
+              <mat-footer-cell *matFooterCellDef>
+              </mat-footer-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+              <mat-header-cell *matHeaderCellDef>
+                Precio
+              </mat-header-cell>
+              <mat-cell *matCellDef="let item">
+                <span class="mobile-label">Precio</span>
+                {{item.price | currency: 'MXN' : 'symbol-narrow': '1.2-2' : 'en-US'}}
+              </mat-cell>
+              <mat-footer-cell *matFooterCellDef>
+                <strong>{{total | currency: 'MXN' : 'symbol-narrow': '1.2-2' : 'en-US'}}</strong>
+              </mat-footer-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns">
+            </mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns">
+            </mat-row>
+            <mat-footer-row *matFooterRowDef="displayedColumns">
+            </mat-footer-row>
+          </mat-table>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

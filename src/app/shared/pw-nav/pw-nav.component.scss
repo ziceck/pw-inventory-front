@@ -1,0 +1,26 @@
+/* TODO move this pw-nav */
+@use '@angular/material' as mat;
+
+.ol-white {
+  padding: 10px;
+}
+
+.breadcrumb {
+  border-radius: 5px;
+}
+
+@media (prefers-color-scheme: light) {
+  .ol-white {
+    background: mat.get-color-from-palette(mat.$light-theme-background-palette, card);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .ol-white {
+    background: mat.get-color-from-palette(mat.$dark-theme-background-palette, card);
+  }
+}
+
+nav {
+  border-radius: 5px;
+}

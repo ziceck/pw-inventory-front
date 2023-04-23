@@ -1,0 +1,22 @@
+<mat-form-field appearance="outline">
+  <mat-label>Rol</mat-label>
+  <mat-select
+      (selectionChange)="onSelectionChange($event)"
+      [formControl]="formControl"
+      [value]="value"
+      [required]="required">
+    <mat-option disabled>
+      Seleccione un rol
+    </mat-option>
+    <mat-option
+        *ngFor="let role of roles"
+        [value]="role.id">
+      {{[role.authority] | role | titlecase}}
+    </mat-option>
+  </mat-select>
+
+  <mat-error *ngIf="formControl.hasError('required')">
+    El <strong>rol</strong> es requerido
+  </mat-error>
+
+</mat-form-field>

@@ -1,0 +1,13 @@
+@use '@angular/material' as mat;
+
+@media (prefers-color-scheme: light) {
+  .active-link {
+    background: lightgray!important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .active-link {
+    background: mat.get-color-from-palette(mat.$dark-theme-background-palette, background)!important;
+  }
+}

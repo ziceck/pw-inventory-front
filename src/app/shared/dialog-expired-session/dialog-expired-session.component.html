@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>
+  La sesión está por expirar en {{SECONDS}} segundos
+</h1>
+<div mat-dialog-content>
+  <div class="row">
+    <div class="col">
+      <button
+          id="close-modal"
+          mat-raised-button
+          [mat-dialog-close]="closeSession"
+          color="warn">
+        Cerrar sesión
+      </button>
+    </div>
+    <div class="col d-flex justify-content-end">
+      <button
+          [mat-dialog-close]="continueSession"
+          mat-raised-button
+          cdkFocusInitial
+          color="primary"
+          type="submit">
+        Continuar sesión
+      </button>
+    </div>
+  </div>
+</div>

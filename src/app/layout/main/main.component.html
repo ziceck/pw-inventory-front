@@ -1,0 +1,92 @@
+<mat-sidenav-container class="sidenav-container">
+
+  <mat-sidenav
+      #drawer [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false"
+      class="sidenav"
+      fixedInViewport>
+    <mat-toolbar>
+      <!--img
+          id="img-creditcard"
+          src="assets/images/SIAPE_1_logo.png"
+          width="80%"/!-->
+    </mat-toolbar>
+    <br>
+    <app-header>
+    </app-header>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <div class="row">
+        <div class="col">
+          <button
+              (click)="drawer.toggle()"
+              *ngIf="isHandset$ | async"
+              aria-label="Toggle sidenav"
+              mat-icon-button
+              type="button">
+            <mat-icon aria-label="Side nav toggle icon">
+              menu
+            </mat-icon>
+          </button>
+        </div>
+        <div class="col">
+          Sistema de inventario
+        </div>
+      </div>
+      <div class="col d-flex justify-content-end">
+        <button
+            [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu"
+            mat-icon-button
+            matTooltip="Menú">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button routerLink="/profiles" mat-menu-item matTooltip="Perfil">
+            <mat-icon>face</mat-icon>
+            <span>{{currentUser.username }}</span>
+          </button>
+          <!--span mat-menu-item matTooltip="Nombre de usuario">
+            <div class="row">
+              <div class="col">
+                <span id="face" class="material-icons">
+                  face
+                </span>
+              </div>
+              <div class="col">
+                <strong>{{currentUser.username }}</strong>
+              </div>
+            </div>
+          </span!-->
+          <!--span mat-menu-item matTooltip="Rol">
+            {{currentUser.roles}}
+          </span-->
+          <hr>
+          <button mat-menu-item routerLink="/about" matTooltip="Información del sistema">
+            <mat-icon>info</mat-icon>
+            <span>Información</span>
+          </button>
+          <hr>
+          <button mat-menu-item routerLink="/configuration" matTooltip="Configuración del sistema">
+            <mat-icon>settings</mat-icon>
+            <span>Configuración</span>
+          </button>
+          <hr>
+          <button (click)="logout()" mat-menu-item>
+            <mat-icon>logout</mat-icon>
+            <span>Cerrar sesión</span>
+          </button>
+        </mat-menu>
+      </div>
+    </mat-toolbar>
+
+    <!-- Add Content Here -->
+    <div class="container-fluid">
+      <app-spinner-request></app-spinner-request>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

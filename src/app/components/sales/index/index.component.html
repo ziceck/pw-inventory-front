@@ -1,0 +1,107 @@
+<div class="main-padding">
+
+  <app-pw-nav>
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Ventas</li>
+  </app-pw-nav>
+
+  <mat-card>
+    <mat-card-title>
+      <div class="row">
+        <div class="col">
+          Ventas Registradas
+        </div>
+        <div class="col d-flex justify-content-end">
+          <button
+              aria-label="Registrar venta"
+              color="accent"
+              mat-fab
+              matTooltip="Registrar venta"
+              routerLink="../create">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card-title>
+
+    <mat-card-content [hidden]="dataSource.data.length === 0">
+      <div class="row">
+        <div class="col">
+          <mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="#">
+              <mat-header-cell *matHeaderCellDef>
+                #
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let sale; index as i">
+                <span class="mobile-label">#</span>
+                {{ i + 1 }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+              <mat-header-cell *matHeaderCellDef>
+                Descripción
+              </mat-header-cell>
+              <mat-cell *matCellDef="let sale">
+                <span class="mobile-label">Descripción</span>
+                {{sale.description}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+              <mat-header-cell *matHeaderCellDef>
+                Total venta
+              </mat-header-cell>
+              <mat-cell *matCellDef="let sale">
+                <span class="mobile-label">Precio</span>
+                {{totalSale(sale.items) | currency: 'MXN' : 'symbol-narrow': '1.2-2' : 'en-US'}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="date-created">
+              <mat-header-cell *matHeaderCellDef>
+                Fecha
+              </mat-header-cell>
+              <mat-cell *matCellDef="let sale">
+                <span class="mobile-label">Fecha</span>
+                {{sale.dateCreated | date: 'longDate'}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="options">
+              <mat-header-cell *matHeaderCellDef>
+                Opciones
+              </mat-header-cell>
+              <mat-cell *matCellDef="let sale">
+                <span class="mobile-label">Opciones</span>
+                <app-pw-option
+                    [routerLink]="'../details/' + sale.id"
+                    title="Detalles">
+                  info
+                </app-pw-option>
+                <app-pw-option (click)="reprint(sale.id)">
+                  print
+                </app-pw-option>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns">
+            </mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns">
+            </mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+          </mat-paginator>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-content *ngIf="dataSource.data.length === 0">
+      <app-no-records>
+        No se encontraron ventas
+      </app-no-records>
+    </mat-card-content>
+
+  </mat-card>
+</div>

@@ -1,0 +1,9 @@
+mat-table mat-form-field {
+  padding: 1px;
+  margin: 1px;
+  width: 50%;
+}
+
+.mat-cell {
+  height: 100px;
+}

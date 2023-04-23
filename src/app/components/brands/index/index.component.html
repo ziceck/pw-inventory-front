@@ -1,0 +1,84 @@
+<div class="main-padding">
+
+  <app-pw-nav>
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Marcas</li>
+  </app-pw-nav>
+
+  <mat-card>
+    <mat-card-title>
+      <div class="row">
+        <div class="col">
+          Marcas
+        </div>
+        <div class="col d-flex justify-content-end">
+          <button
+            aria-label="Registrar marca"
+            color="accent"
+            mat-fab
+            matTooltip="Registrar marca"
+            (click)="onAddBrand()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card-title>
+    <mat-card-content [hidden]="dataSource.data.length == 0">
+      <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="#">
+          <mat-header-cell *matHeaderCellDef>
+            #
+          </mat-header-cell>
+          <mat-cell *matCellDef="let brand; index as i">
+            <span class="mobile-label">#</span>
+            {{i + 1}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef>
+            Nombre
+          </mat-header-cell>
+          <mat-cell *matCellDef="let brand">
+            {{brand.name | titlecase}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="options">
+          <mat-header-cell *matHeaderCellDef>
+            Opciones
+          </mat-header-cell>
+          <mat-cell *matCellDef="let brand; index as i">
+            <span class="mobile-label">Opciones</span>
+            <app-pw-option
+              (click)="onDeleteBrand(brand, i + paginator.pageIndex * paginator.pageSize)"
+              matTooltip="Eliminar marca">
+              delete
+            </app-pw-option>
+            <app-pw-option
+              (click)="onEditBrand(brand)"
+              matTooltip="Editar marca">
+              edit
+            </app-pw-option>
+          </mat-cell>
+          <mat-footer-cell *matFooterCellDef>
+          </mat-footer-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns">
+        </mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+      </mat-paginator>
+    </mat-card-content>
+
+    <mat-card-content *ngIf="dataSource.data.length === 0">
+     <app-no-records>
+       No se encontraron marcas
+     </app-no-records>
+    </mat-card-content>
+  </mat-card>
+</div>
+

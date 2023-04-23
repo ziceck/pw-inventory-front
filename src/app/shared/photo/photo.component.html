@@ -1,0 +1,15 @@
+<mat-card-content>
+  <div class="row mb-4">
+    <div class="col-auto">
+      <img
+          width="150"
+          height="150"
+          [src]="this.photo.url ?? './assets/img/item.svg'"
+          alt="Perfil de usuario"
+          class="rounded img-fluid"
+          matTooltip="click para cambiar la foto"
+          (click)="onClickPhoto()">
+      <input id="input-file" type="file" (change)="onSelectFile($event)" accept="image/png,image/JPEG">
+    </div>
+  </div>
+</mat-card-content>

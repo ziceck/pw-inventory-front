@@ -1,0 +1,34 @@
+<mat-nav-list>
+  <mat-divider></mat-divider>
+  <div *ngFor="let module of modulesAndRoles">
+    <mat-list-item
+        *ngIf="module.submodules.length === 0"
+        [routerLink]="'/' + module.url"
+        routerLinkActive="active-link">
+      <mat-icon>
+        {{module.icon}}
+      </mat-icon>
+      <span> {{module.name}}</span>
+    </mat-list-item>
+    <mat-expansion-panel *ngIf="module.submodules.length > 0">
+      <mat-expansion-panel-header>
+        <mat-icon>
+          {{module.icon}}
+        </mat-icon>
+        <span>{{module.name}}</span>
+      </mat-expansion-panel-header>
+      <mat-divider></mat-divider>
+      <mat-nav-list dense>
+        <!--[class.active]="router.isActive(sub.url, false)" revisar-->
+        <mat-list-item
+            *ngFor="let sub of module.submodules"
+            [queryParams]="sub.queryString"
+            [routerLink]="'/' + sub.url"
+            routerLinkActive="active-link">
+          <span style="font-size:14px">{{sub.name}}</span>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-expansion-panel>
+    <mat-divider></mat-divider>
+  </div>
+</mat-nav-list>

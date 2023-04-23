@@ -1,0 +1,97 @@
+<div class="main-padding">
+
+  <app-pw-nav>
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Categorías</li>
+  </app-pw-nav>
+
+  <mat-card>
+    <mat-card-title>
+      <div class="row">
+        <div class="col">
+          Categorías
+        </div>
+        <div class="col d-flex justify-content-end">
+          <button
+              aria-label="Registrar categoría"
+              color="accent"
+              mat-fab
+              matTooltip="Registrar categoría"
+              (click)="onAddCategory()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card-title>
+
+    <!--Sort and paginator nor work if you use ng if-->
+    <mat-card-content [hidden]="dataSource.data.length == 0">
+      <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="#">
+          <mat-header-cell *matHeaderCellDef>
+            #
+          </mat-header-cell>
+          <mat-cell *matCellDef="let category; index as i">
+            <span class="mobile-label">#</span>
+            {{ i + 1 }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Nombre
+          </mat-header-cell>
+          <mat-cell *matCellDef="let category">
+            {{category.name | titlecase}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="total-items">
+          <mat-header-cell *matHeaderCellDef>
+            Total productos
+          </mat-header-cell>
+          <mat-cell *matCellDef="let category">
+            {{category.items.length}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="options">
+          <mat-header-cell *matHeaderCellDef>
+            Opciones
+          </mat-header-cell>
+          <mat-cell *matCellDef="let category; index as i">
+            <span class="mobile-label">Opciones</span>
+            <app-pw-option
+                *ngIf="category.deleteable"
+                (click)="onDeleteCategory(category, i + paginator.pageIndex * paginator.pageSize)"
+                matTooltip="Eliminar categoría">
+              delete
+            </app-pw-option>
+            <app-pw-option
+                *ngIf="category.updateable"
+                (click)="onEditCategory(category)"
+                matTooltip="Editar categoría">
+              edit
+            </app-pw-option>
+          </mat-cell>
+          <mat-footer-cell *matFooterCellDef>
+          </mat-footer-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns">
+        </mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+      </mat-paginator>
+    </mat-card-content>
+
+    <mat-card-content *ngIf="dataSource.data.length === 0">
+      <app-no-records>
+        No se encontraron categorías
+      </app-no-records>
+    </mat-card-content>
+
+  </mat-card>
+</div>

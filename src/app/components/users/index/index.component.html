@@ -1,0 +1,89 @@
+<div class="main-padding">
+
+  <app-pw-nav>
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li aria-current="page" class="breadcrumb-item active">Usuarios</li>
+  </app-pw-nav>
+
+  <mat-card>
+    <mat-card-title>
+      <div class="row">
+        <div class="col">
+          Usuarios Registrados
+        </div>
+        <div class="col d-flex justify-content-end">
+          <button
+              aria-label="Registrar producto"
+              color="accent"
+              mat-fab
+              matTooltip="Registrar usuario"
+              routerLink="../create">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card-title>
+
+    <mat-card-content [hidden]="dataSource.data.length === 0">
+      <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="#">
+          <mat-header-cell *matHeaderCellDef>
+            #
+          </mat-header-cell>
+
+          <mat-cell *matCellDef="let user; index as i">
+            <span class="mobile-label">#</span>
+            {{ i + 1 }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="user-name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Nombre de usuario
+          </mat-header-cell>
+          <mat-cell *matCellDef="let user">
+            <span class="mobile-label">Nombre</span>
+            {{user.username}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="roles">
+          <mat-header-cell *matHeaderCellDef>
+            Roles
+          </mat-header-cell>
+          <mat-cell *matCellDef="let user">
+            <span class="mobile-label">Precio compra</span>
+            {{user.roles | role }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="options">
+          <mat-header-cell *matHeaderCellDef>
+            Opciones
+          </mat-header-cell>
+          <mat-cell *matCellDef="let user">
+            <span class="mobile-label">Opciones</span>
+            <app-pw-option
+                [routerLink]="'../edit/' + user.id"
+                (click)="onClickEdit(user)"
+                title="Editar usuario">
+              edit
+            </app-pw-option>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns">
+        </mat-row>
+      </mat-table>
+    </mat-card-content>
+
+    <mat-card-content *ngIf="dataSource.data.length === 0">
+      <app-no-records>
+        No se encontraron usuarios
+      </app-no-records>
+    </mat-card-content>
+  </mat-card>
+
+</div>

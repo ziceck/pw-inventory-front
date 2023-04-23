@@ -1,0 +1,25 @@
+@use '@angular/material' as mat;
+@use '@angular/material/theming' as theming;
+
+/*start*/
+.span-clickable {
+  cursor: pointer;
+}
+
+@media (prefers-color-scheme: light) {
+  .span-clickable:hover {
+    color:  mat.get-color-from-palette(mat.$indigo-palette, 600);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .span-clickable:hover {
+    color:  mat.get-color-from-palette(mat.$purple-palette, 600);
+  }
+}
+
+.span-clickable:hover {
+  text-decoration: none;
+  text-shadow: 1px 1px 1px #555;
+}
+/*end */

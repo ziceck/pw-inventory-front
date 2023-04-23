@@ -1,0 +1,28 @@
+.container {
+  max-width: 100%;
+  width: 100% !important;
+  height: 100vh!important;
+  padding-top: 10%;
+}
+
+@media (prefers-color-scheme: light) {
+  .hexagon {
+    background-color: #ffffff;
+    background-image: url("src/assets/img/gears.svg");
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .hexagon {
+    background-color: black;
+    background-image: url("src/assets/img/gears-dark.svg");
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.mat-progress-spinner-container, mat-progress-spinner {
+  margin: 30px auto;
+}

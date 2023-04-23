@@ -1,0 +1,78 @@
+<div class="hexagon container">
+
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <mat-card class="mat-elevation-z5">
+        <mat-card-title>
+          Inicio de sesión
+        </mat-card-title>
+        <mat-card-content>
+          <!--img
+              src="assets/images/login/logotipo.jpg"
+              alt="logo"
+              width="80%"
+              height="80%"/-->
+          <form (ngSubmit)="login()" [formGroup]="loginForm">
+            <div class="row">
+              <div class="col">
+                <mat-form-field appearance="outline">
+                  <input
+                      formControlName="username"
+                      matInput
+                      placeholder="Usuario"
+                      required/>
+                  <mat-error
+                      *ngIf="loginForm.controls.username.hasError('required')">
+                    El campo usuario es <strong>requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <mat-form-field appearance="outline">
+                  <input
+                      autocomplete="on"
+                      formControlName="password"
+                      matInput
+                      name="password"
+                      placeholder="Contraseña"
+                      required
+                      type="password"/>
+                  <mat-error
+                      *ngIf="loginForm.controls.password.hasError('required')">
+                    La contraseña es <strong>requerida</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col d-flex justify-content-center">
+                <button
+                    color="primary"
+                    mat-raised-button
+                    type="submit">
+                  {{'Login' | translate}}
+                </button>
+              </div>
+            </div>
+
+            <!--div class="row" style="margin-top: 20px">
+              <div class="col-sm">
+                <a i18n routerLink="../recuperar-contrasenia">
+                  Olvidé mi contraseña
+                </a>
+              </div>
+            </div-->
+          </form>
+          <div *ngIf="loading" class="mat-progress-spinner-container">
+            <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+            <p>Comprobando credenciales</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
